@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Listado de Solicitudes";
+    var contador = Model.Count();
 }
 
 <h1 class="mb-4">Listado de Solicitudes</h1>
@@ -14,34 +15,58 @@
     </div>
 }
 
-<p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-muted">Total de solicitudes registradas: <strong>@contador</strong></span>
     <a asp-action="Create" class="btn btn-primary">Registrar nueva solicitud</a>
-</p>
+</div>
 
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Distrito</th>
-            <th>Tipo de servicio</th>
-            <th>Descripción</th>
-            <th>Fecha de registro</th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
+@functions {
+    private static string NombreTipoServicio(string tipo)
     {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Cliente</td>
-            <td>@item.Telefono</td>
-            <td>@item.Distrito</td>
-            <td>@item.TipoServicio</td>
-            <td>@item.Descripcion</td>
-            <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
-        </tr>
+        return tipo switch
+        {
+            "Instalacion" => "Instalación",
+            "Mantenimiento" => "Mantenimiento",
+            "Revision" => "Revisión",
+            "Fuga" => "Fuga",
+            _ => tipo
+        };
     }
-    </tbody>
-</table>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Distrito</th>
+                <th>Tipo de servicio</th>
+                <th>Descripción</th>
+                <th>Fecha de registro</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Cliente</td>
+                <td>@item.Telefono</td>
+                <td>@item.Distrito</td>
+                <td>@NombreTipoServicio(item.TipoServicio)</td>
+                <td>@item.Descripcion</td>
+                <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        Aún no hay solicitudes registradas. <a asp-action="Create">Registre la primera solicitud</a>.
+    </div>
+}
