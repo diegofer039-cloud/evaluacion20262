@@ -5,68 +5,90 @@
     var contador = Model.Count();
 }
 
-<h1 class="mb-4">Listado de Solicitudes</h1>
+<div class="tg-page-head d-flex flex-wrap justify-content-between align-items-end">
+    <div>
+        <h1>Listado de Solicitudes</h1>
+        <p class="lead">Consulta las solicitudes de servicio registradas</p>
+    </div>
+    <a asp-action="Create" class="btn btn-tg">+ Nueva solicitud</a>
+</div>
 
 @if (TempData["Mensaje"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-tg-success alert-dismissible fade show" role="alert">
         @TempData["Mensaje"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <span class="text-muted">Total de solicitudes registradas: <strong>@contador</strong></span>
-    <a asp-action="Create" class="btn btn-primary">Registrar nueva solicitud</a>
-</div>
-
 @functions {
-    private static string NombreTipoServicio(string tipo)
+    private static string NombreTipoServicio(string tipo) => tipo switch
     {
-        return tipo switch
-        {
-            "Instalacion" => "Instalación",
-            "Mantenimiento" => "Mantenimiento",
-            "Revision" => "Revisión",
-            "Fuga" => "Fuga",
-            _ => tipo
-        };
-    }
+        "Instalacion" => "Instalación",
+        "Revision" => "Revisión",
+        _ => tipo
+    };
+
+    private static string ClaseBadge(string tipo) => tipo switch
+    {
+        "Instalacion" => "tg-badge-instalacion",
+        "Mantenimiento" => "tg-badge-mantenimiento",
+        "Revision" => "tg-badge-revision",
+        "Fuga" => "tg-badge-fuga",
+        _ => "bg-secondary text-white"
+    };
 }
 
 @if (Model.Any())
 {
-    <table class="table table-striped table-hover align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Cliente</th>
-                <th>Teléfono</th>
-                <th>Distrito</th>
-                <th>Tipo de servicio</th>
-                <th>Descripción</th>
-                <th>Fecha de registro</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Cliente</td>
-                <td>@item.Telefono</td>
-                <td>@item.Distrito</td>
-                <td>@NombreTipoServicio(item.TipoServicio)</td>
-                <td>@item.Descripcion</td>
-                <td>@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    <div class="tg-card overflow-hidden">
+        <div class="border-bottom px-4 py-3 d-flex justify-content-between align-items-center bg-white">
+            <span class="text-muted small">
+                <strong class="text-primary">@contador</strong> solicitud(es) registrada(s)
+            </span>
+            <span class="text-muted small">Ordenadas por fecha de registro</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table tg-table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Distrito</th>
+                        <th>Tipo de servicio</th>
+                        <th>Descripción</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold text-muted">#@item.Id</td>
+                        <td class="fw-semibold">@item.Cliente</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Distrito</td>
+                        <td>
+                            <span class="tg-badge @ClaseBadge(item.TipoServicio)">
+                                <span class="tg-dot" aria-hidden="true"></span>
+                                @NombreTipoServicio(item.TipoServicio)
+                            </span>
+                        </td>
+                        <td>@item.Descripcion</td>
+                        <td class="text-muted">@item.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
 else
 {
-    <div class="alert alert-info" role="alert">
-        Aún no hay solicitudes registradas. <a asp-action="Create">Registre la primera solicitud</a>.
+    <div class="tg-card p-5 text-center">
+        <div class="display-6 mb-3 text-muted">Sin solicitudes</div>
+        <p class="text-muted mb-4">Aún no hay solicitudes registradas.</p>
+        <a asp-action="Create" class="btn btn-tg">Registrar la primera solicitud</a>
     </div>
 }

@@ -1,5 +1,26 @@
+/* ===== TecnoGas Hogar - Tema corporativo ===== */
+:root {
+  --tg-primary: #0f4c81;
+  --tg-primary-dark: #0a3558;
+  --tg-accent: #f39c12;
+  --tg-light: #f4f7fb;
+  --tg-border: #e3e8ef;
+  --tg-text: #22303f;
+  --tg-text-muted: #56647a;
+  --tg-radius: 14px;
+  --tg-shadow: 0 8px 24px rgba(15, 76, 129, 0.08);
+
+  /* Curvas de easing (emil-design-eng) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Duración de UI */
+  --dur-fast: 160ms;
+  --dur-base: 200ms;
+}
+
 html {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 @media (min-width: 768px) {
@@ -8,24 +29,385 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--tg-light);
+  color: var(--tg-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.content-wrap {
+  flex: 1 0 auto;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* ===== Navbar ===== */
+.tg-navbar {
+  background: linear-gradient(90deg, var(--tg-primary-dark) 0%, var(--tg-primary) 100%);
+  padding: 0.6rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tg-navbar .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.tg-navbar .navbar-brand .brand-icon {
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.tg-navbar .brand-sub {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 400;
+  opacity: 0.78;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tg-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  transition: color var(--dur-base) ease, background var(--dur-base) ease;
+}
+
+.tg-navbar .nav-link:hover,
+.tg-navbar .nav-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tg-navbar .nav-link.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ===== Tarjetas generales ===== */
+.tg-card {
+  background: #fff;
+  border: 1px solid var(--tg-border);
+  border-radius: var(--tg-radius);
+  box-shadow: var(--tg-shadow);
+}
+
+.tg-page-head {
+  margin-bottom: 1.75rem;
+}
+
+.tg-page-head h1 {
+  font-weight: 700;
+  color: var(--tg-primary-dark);
+  margin-bottom: 0.25rem;
+}
+
+.tg-page-head .lead {
+  color: var(--tg-text-muted);
+  font-size: 1.05rem;
+  margin-bottom: 0;
+}
+
+/* ===== Botones ===== */
+.btn-tg,
+.btn-tg-outline {
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-base) ease,
+    color var(--dur-base) ease, border-color var(--dur-base) ease, box-shadow var(--dur-base) ease;
+}
+
+.btn-tg:active,
+.btn-tg-outline:active {
+  transform: scale(0.97);
+}
+
+.btn-tg {
+  background: var(--tg-primary);
+  color: #fff;
+  border: none;
+  padding: 0.55rem 1.4rem;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(15, 76, 129, 0.25);
+}
+
+.btn-tg:hover {
+  background: var(--tg-primary-dark);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(15, 76, 129, 0.3);
+}
+
+.btn-tg:focus-visible {
+  outline: 2px solid var(--tg-accent);
+  outline-offset: 2px;
+}
+
+.btn-tg-outline {
+  background: transparent;
+  border: 1.5px solid var(--tg-primary);
+  color: var(--tg-primary);
+  padding: 0.5rem 1.4rem;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.btn-tg-outline:hover {
+  background: var(--tg-primary);
+  color: #fff;
+}
+
+.btn-tg-outline:focus-visible {
+  outline: 2px solid var(--tg-accent);
+  outline-offset: 2px;
+}
+
+/* ===== Formulario ===== */
+.tg-form .form-label {
+  font-weight: 600;
+  color: var(--tg-text);
+  font-size: 0.9rem;
+}
+
+.tg-form .form-control,
+.tg-form .form-select {
+  border-radius: 10px;
+  border-color: var(--tg-border);
+  padding: 0.6rem 0.85rem;
+  transition: border-color var(--dur-base) ease, box-shadow var(--dur-base) ease;
+}
+
+.tg-form .form-control:focus,
+.tg-form .form-select:focus {
+  border-color: var(--tg-primary);
+  box-shadow: 0 0 0 0.2rem rgba(15, 76, 129, 0.12);
+}
+
+.tg-form .text-danger {
+  font-size: 0.82rem;
+}
+
+.tg-form ::placeholder {
+  color: #8a97a8;
+}
+
+/* ===== Tabla ===== */
+.tg-table thead th {
+  background: var(--tg-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border: none;
+  white-space: nowrap;
+  padding: 0.8rem 0.75rem;
+}
+
+.tg-table tbody tr {
+  transition: background var(--dur-base) ease;
+}
+
+.tg-table tbody tr:hover {
+  background: #eef4fb;
+}
+
+.tg-table tbody td {
+  vertical-align: middle;
+  color: var(--tg-text);
+  padding: 0.75rem;
+}
+
+/* Badge de tipo de servicio */
+.tg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tg-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+.tg-badge-mantenimiento { background: #e3f2fd; color: #0d47a1; }
+.tg-badge-instalacion   { background: #e8f5e9; color: #1b5e20; }
+.tg-badge-revision      { background: #fff3e0; color: #e65100; }
+.tg-badge-fuga          { background: #fce4ec; color: #880e4f; }
+
+/* ===== Alerts ===== */
+.alert-tg-success {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  color: #1b5e20;
+  border-radius: 10px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out);
+}
+
+@starting-style {
+  .alert-tg-success {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--tg-primary-dark);
+  color: rgba(255, 255, 255, 0.85);
+  padding: 1.1rem 0;
+  margin-top: 3rem;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Hero home ===== */
+.tg-hero {
+  background: linear-gradient(135deg, var(--tg-primary-dark) 0%, var(--tg-primary) 60%, #1a6bb4 100%);
+  color: #fff;
+  border-radius: var(--tg-radius);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--tg-shadow);
+}
+
+.tg-hero h1 {
+  font-weight: 800;
+}
+
+.tg-hero .lead {
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 60ch;
+}
+
+.tg-hero .btn-light {
+  background: #fff;
+  color: var(--tg-primary);
+  font-weight: 600;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-base) ease;
+}
+
+.tg-hero .btn-light:active {
+  transform: scale(0.97);
+}
+
+.tg-hero-mark {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tg-hero-mark-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+.tg-hero-mark-text {
+  font-size: 3.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+/* Icono de características */
+.tg-feature-ico {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.tg-feature-ico-primary {
+  background: var(--tg-primary);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.tg-feature-ico-soft {
+  background: #e8f0f9;
+  color: var(--tg-primary);
+  font-size: 1.1rem;
+}
+
+.tg-card-feature {
+  border-top: 3px solid var(--tg-primary);
+}
+
+/* ===== Animaciones de entrada suaves ===== */
+@keyframes tg-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tg-page-head,
+.tg-card,
+.tg-hero {
+  animation: tg-fade-up 320ms var(--ease-out) both;
+}
+
+/* ===== Accesibilidad / preferencias ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hover solo en dispositivos con puntero (evita falsos activos en táctil) */
+@media (hover: hover) and (pointer: fine) {
+  .tg-table tbody tr:hover {
+    background: #eef4fb;
+  }
 }
