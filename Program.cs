@@ -11,6 +11,14 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// Aplicar migraciones al arrancar para asegurar que la base de datos exista
+// (útil en entornos desplegados como Render, donde no se ejecuta dotnet ef).
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<SolicitudDbContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
