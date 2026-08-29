@@ -1,5 +1,5 @@
 # ===== Build stage =====
-FROM mcr.microsoft.com/dotnet/sdk:10.0.400-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS build
 WORKDIR /src
 
 COPY ["TecnoGas.Hogar.csproj", "./"]
@@ -9,7 +9,7 @@ COPY . .
 RUN dotnet publish "TecnoGas.Hogar.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # ===== Runtime stage =====
-FROM mcr.microsoft.com/dotnet/aspnet:10.0.11-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine AS final
 WORKDIR /app
 
 # Limitar el consumo de memoria del runtime (.NET) para el tier Free de Render (512 MB).
