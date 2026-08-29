@@ -1,13 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using TecnoGas.Hogar.Data;
 
-// NOTA: Para evitar el error de inotify en Render, desactivamos reloadOnChange
+// NOTA: Para evitar el error de inotify en Render, desactivamos los file watchers antes de crear el builder
+Environment.SetEnvironmentVariable("DOTNET_USE_POLLING_FILE_WATCHER", "1");
+Environment.SetEnvironmentVariable("DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE", "false");
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.Sources.Clear();
-builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: false);
-builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: false);
-builder.Configuration.AddEnvironmentVariables();
-builder.Configuration.AddCommandLine(args);
 builder.Services.AddDbContext<SolicitudDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
