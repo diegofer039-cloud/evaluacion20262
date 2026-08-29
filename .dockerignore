@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+*.db
+*.db-shm
+*.db-wal
+*.user
+*.suo
+.git/
+.gitignore
+Dockerfile*
+.dockerignore
+**/.playwright-mcp/
+PRODUCT.md
