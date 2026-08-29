@@ -1,7 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.Json;
 using TecnoGas.Hogar.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// En contenedores con límite bajo de inotify (p. ej. el tier Free de Render), el
+// FileSystemWatcher que activa el recargado automático de appsettings.json revienta
+// el arranque con "IOException: inotify instances has been reached". Desactivamos la
+// recarga de configuración de archivos, que es la que crea esos watchers.
+foreach (var source in builder.Configuration.Sources.OfType<JsonConfigurationSource>())
+    source.ReloadOnChange = false;
 
 builder.Services.AddDbContext<SolicitudDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
