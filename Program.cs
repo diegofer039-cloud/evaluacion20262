@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using TecnoGas.Hogar.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<SolicitudDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
