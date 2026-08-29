@@ -484,4 +484,9 @@ $RECYCLE.BIN/
 # SQLite local database
 *.db
 *.db-journal
+*.db-shm
+*.db-wal
+
+# Playwright MCP snapshots
+.playwright-mcp/
 
